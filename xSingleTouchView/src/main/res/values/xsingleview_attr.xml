@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="XSingleTouchView">
+        <!--四个控制点的图片-->
+        <attr name="src_lt" format="reference" />
+        <attr name="src_lb" format="reference" />
+        <attr name="src_rt" format="reference" />
+        <attr name="src_rb" format="reference" />
+        <!--中间的大图-->
+        <attr name="src" format="reference" />
+        <!--边缘线的宽度和颜色-->
+        <attr name="line_width" format="dimension" />
+        <attr name="line_color" format="color" />
+        <!--图的大小-->
+        <attr name="image_width" format="dimension" />
+        <attr name="image_height" format="dimension" />
+    </declare-styleable>
+</resources>
