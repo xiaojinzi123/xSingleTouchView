@@ -14,5 +14,17 @@
         <!--图的大小-->
         <attr name="image_width" format="dimension" />
         <attr name="image_height" format="dimension" />
+        <!--初始化的位置-->
+        <attr name="gravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="top" value="2" />
+            <enum name="right" value="3" />
+            <enum name="bottom" value="4" />
+            <enum name="left_top" value="5" />
+            <enum name="right_top" value="6" />
+            <enum name="left_bottom" value="7" />
+            <enum name="right_bottom" value="8" />
+        </attr>
     </declare-styleable>
 </resources>

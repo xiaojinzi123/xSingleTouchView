@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -12,6 +13,7 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import static com.move.xsingletouchview.XSingleTouchView.ControlPosition.Delete;
 import static com.move.xsingletouchview.XSingleTouchView.ControlPosition.Drag;
@@ -48,6 +50,12 @@ import static com.move.xsingletouchview.XSingleTouchView.ControlPosition.Scale;
  */
 public class XSingleTouchView extends View implements View.OnClickListener {
 
+    /**
+     * 初始化的时候中间点的位置
+     */
+    public enum CenterPosition {
+        Center, Left, Top, Right, Bottom, LeftTop, RightTop, LeftBottom, RightBottom
+    }
 
     public XSingleTouchView(Context context) {
         this(context, null);
@@ -71,6 +79,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         mXViewConfig = xViewConfig;
         //拿到中间点
         mCenterPoint = mXViewConfig.getCenterPoint();
+
         //设置点击事件
         setOnClickListener(this);
 
@@ -125,6 +134,10 @@ public class XSingleTouchView extends View implements View.OnClickListener {
             Bitmap centerbitmap = BitmapFactory.decodeResource(context.getResources(), centerRsd);
             mXViewConfig.setCenterBitmap(centerbitmap);
         }
+
+        //读取位置信息
+        int gravity = a.getInt(R.styleable.XSingleTouchView_gravity, 0);
+        //暂时实现不了
 
         //读取大图的大小
         float imageWidth = a.getDimensionPixelSize(R.styleable.XSingleTouchView_image_width, -1);
@@ -310,6 +323,11 @@ public class XSingleTouchView extends View implements View.OnClickListener {
      */
     private int mAngle;
 
+    /**
+     * 记录是否滑动了
+     */
+    private boolean isMove;
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
@@ -317,10 +335,14 @@ public class XSingleTouchView extends View implements View.OnClickListener {
             return super.onTouchEvent(e);
         }
 
+        //拿到动作
         int action = e.getAction();
 
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
+
+            case MotionEvent.ACTION_DOWN: //如果是按下
+
+                isMove = false;
 
                 //记录按下的点
                 mPreMovePointF.set(e.getX(), e.getY());
@@ -340,7 +362,9 @@ public class XSingleTouchView extends View implements View.OnClickListener {
                 mAngle = MathUtil.getAngleFromPoint(new PointF(mCenterPoint.x - getLeft(), mCenterPoint.y - getTop()), mPreMovePointF);
 
                 break;
-            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_MOVE: //如果是一个鼠标的移动
+
+                isMove = true;
 
                 //记录下移动中的点
                 mCurMovePointF.set(e.getX(), e.getY());
@@ -425,8 +449,12 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
                 break;
 
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: //如果是鼠标的抬起
+
                 onClick(this);
+
+                isMove = false;
+
                 break;
         }
 
@@ -593,6 +621,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
             centerViewHeightSize = mXViewConfig.getCenterViewHeightMinSize();
         }
 
+        //拿到控制点的大小
         float controlSize = mXViewConfig.getControlSize();
 
         float left = -((centerViewWidthSize + controlSize) / 2);
@@ -611,7 +640,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         PointF cp = new PointF(0, 0);
 
         //拿到旋转的角度
-        int degree = mXViewConfig.getRotateDegree();
+        int degree = mXViewConfig.getAdsorbDegree();
 
         //拿到旋转后的点
         ltp = MathUtil.rotateAccordingToPoint(cp, ltp, degree);
@@ -692,6 +721,11 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
     }
 
+    /**
+     * 第一次点击的时间
+     */
+    private long firstClickTime;
+
     @Override
     public void onClick(View v) {
 
@@ -699,6 +733,23 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         if (controlPosition == Delete || controlPosition == Edit) {
             if (mOnControlListener != null) {
                 mOnControlListener.onSove(this, controlPosition);
+            }
+        } else { //如果不是删除和编辑的点击,那么就告诉外面点击事件生效啦
+            if (!isMove) {
+
+                //当前的时间
+                long nowTime = System.currentTimeMillis();
+
+                if (nowTime - firstClickTime < 500) {
+                    if (mOnDbClickListener != null) {
+                        mOnDbClickListener.onDbClick(v);
+                    }
+                    firstClickTime = 0;
+                } else {
+                    firstClickTime = nowTime;
+                    //Toast.makeText(getContext(), "单击事件", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
 
@@ -710,12 +761,26 @@ public class XSingleTouchView extends View implements View.OnClickListener {
     private OnControlListener mOnControlListener;
 
     /**
+     * 双击的回调接口
+     */
+    private OnDbClickListener mOnDbClickListener;
+
+    /**
      * 设置控制菜单的监听
      *
      * @param mOnControlListener
      */
     public void setOnControlListener(OnControlListener mOnControlListener) {
         this.mOnControlListener = mOnControlListener;
+    }
+
+    /**
+     * 设置双击事件监听
+     *
+     * @param onDbClickListener
+     */
+    public void setOnDbClickListener(OnDbClickListener onDbClickListener) {
+        this.mOnDbClickListener = onDbClickListener;
     }
 
     /**
@@ -731,6 +796,19 @@ public class XSingleTouchView extends View implements View.OnClickListener {
          */
         void onSove(XSingleTouchView view, ControlPosition control);
 
+    }
+
+    /**
+     * 双击的监听接口
+     */
+    public interface OnDbClickListener {
+
+        /**
+         * 双击的回调方法
+         *
+         * @param v
+         */
+        void onDbClick(View v);
     }
 
 }

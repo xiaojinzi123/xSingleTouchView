@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity=""
     tools:context="com.move.xsingletouchviewproject.MainAct">
-
 
     <com.move.xsingletouchview.XSingleTouchView
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:image_height="40dp"
+        app:image_width="40dp"
+        app:line_color="#0000FF"
+        app:line_width="1px"
         app:src="@mipmap/ic_launcher_round"
-        app:src_rt="@mipmap/ic_delete"
-        app:src_rb="@mipmap/ic_scale"
         app:src_lb="@mipmap/ic_rotate"
         app:src_lt="@mipmap/ic_edit"
-        app:image_width="40dp"
-        app:image_height="40dp"
-        app:line_width="1px"
-        app:line_color="#0000FF"
-        android:layout_height="wrap_content" />
+        app:src_rb="@mipmap/ic_scale"
+        app:src_rt="@mipmap/ic_delete" />
 
 </RelativeLayout>

@@ -102,7 +102,7 @@ public class XViewConfig extends XBaseConfig {
 
     /**
      * 产生吸附作用的角度,用于绘制,但是不能用于计算,当输出大图的时候需要用这个绘制哦
-     * 因为看到的效果和最终绘制出来的一定要相同,而不能用上面的那个真实值
+     * 因为看到的效果和最终绘制出来的一定要相同,而不能用上面的那个真实值,用于绘制
      * *********************核心数据*********************
      */
     private int mAdsorbDegree;
@@ -169,43 +169,44 @@ public class XViewConfig extends XBaseConfig {
     /**
      * 设置旋转的角度
      *
-     * @param mRotateDegree
+     * @param newRotateDegree
      * @return
      */
-    public boolean setRotateDegree(int mRotateDegree) {
+    public boolean setRotateDegree(int newRotateDegree) {
 
         //不改变角度的真实值，因为角度加减360不会改变原来的数据表达的意思,所以这里就是对角度控制在0-360之间
-        mRotateDegree = mRotateDegree % 360;
-        if (mRotateDegree < 0) {
-            mRotateDegree += 360;
+        newRotateDegree = newRotateDegree % 360;
+        if (newRotateDegree < 0) {
+            newRotateDegree += 360;
         }
-        //记录真实的值
-        this.mRotateDegree = mRotateDegree;
+
+        //下面是实现吸附作用,就是靠近一定范围的时候,直接变成那个值,那么这个值就需要用到绘制,最真实的角度记录在mAdsorbDegree
+        this.mRotateDegree = newRotateDegree;
 
         //靠近水平或者竖直的时候的吸附角度
         int adsorbDegree = 4;
 
-        if (mRotateDegree >= -adsorbDegree && mRotateDegree <= adsorbDegree) {
-            mRotateDegree = 0;
+        if (newRotateDegree >= -adsorbDegree && newRotateDegree <= adsorbDegree) {
+            newRotateDegree = 0;
         }
 
-        if (mRotateDegree >= 90 - adsorbDegree && mRotateDegree <= 90 + adsorbDegree) {
-            mRotateDegree = 90;
+        if (newRotateDegree >= 90 - adsorbDegree && newRotateDegree <= 90 + adsorbDegree) {
+            newRotateDegree = 90;
         }
 
-        if (mRotateDegree >= 180 - adsorbDegree && mRotateDegree <= 180 + adsorbDegree) {
-            mRotateDegree = 180;
+        if (newRotateDegree >= 180 - adsorbDegree && newRotateDegree <= 180 + adsorbDegree) {
+            newRotateDegree = 180;
         }
 
-        if (mRotateDegree >= 270 - adsorbDegree && mRotateDegree <= 270 + adsorbDegree) {
-            mRotateDegree = 270;
+        if (newRotateDegree >= 270 - adsorbDegree && newRotateDegree <= 270 + adsorbDegree) {
+            newRotateDegree = 270;
         }
 
-        if (mRotateDegree >= 360 - adsorbDegree && mRotateDegree <= 360 + adsorbDegree) {
-            mRotateDegree = 0;
+        if (newRotateDegree >= 360 - adsorbDegree && newRotateDegree <= 360 + adsorbDegree) {
+            newRotateDegree = 0;
         }
 
-        this.mAdsorbDegree = mRotateDegree;
+        this.mAdsorbDegree = newRotateDegree;
 
         return true;
     }
