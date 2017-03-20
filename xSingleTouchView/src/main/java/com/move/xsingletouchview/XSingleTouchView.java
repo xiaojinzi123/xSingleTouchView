@@ -468,20 +468,28 @@ public class XSingleTouchView extends View implements View.OnClickListener {
     private void adjustLayout() {
 
         //计算出在父容器中自身控件的位置
-        int left = (int) Math.ceil(mCenterPoint.x - mViewWidth / 2);
-        int top = (int) Math.ceil(mCenterPoint.y - mViewHeight / 2);
-        int right = left + mViewWidth;
-        int buttom = top + mViewHeight;
+        float left = (mCenterPoint.x - mViewWidth / 2);
+        float top = (mCenterPoint.y - mViewHeight / 2);
+        float right = (left + mViewWidth);
+        float buttom = (top + mViewHeight);
+
+        //因为很多值都是精确计算的,而确定自己的绘制范围却是需要四个int包围的区域
+        //那么不可避免的就会遇到浮点数转化为int,但是这个界面里面的都是精确计算的坐标点
+        //所以取整的时候,一定是往范围扩大的方向取,所以下面的取整
+        int newLeft = (int) (left - 0.5);
+        int newTop = (int) (top - 0.5);
+        int newRight = (int) (right + 0.5);
+        int newButtom = (int) (buttom + 0.5);
 
         //安排自己的位置
-        layout(left, top, right, buttom);
+        layout(newLeft, newTop, newRight, newButtom);
 
     }
 
     /**
      * 自身的宽和高,包括了控制菜单的,不是属于可配置的一项
      */
-    private int mViewWidth, mViewHeight;
+    private float mViewWidth, mViewHeight;
 
     /**
      * 手指按下的时候的记录下来的点,这个点也会被转化为相对于父容器再来计算
@@ -530,7 +538,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
         float controlSize = mXViewConfig.getControlSize();
         //拿到控制菜单的一半大小
-        int mHalfControlSize = (int) controlSize / 2;
+        float mHalfControlSize = controlSize / 2;
 
         //拿到中心点在自身控件中的坐标点
         float cpx = mCenterPoint.x - viewLeft;
@@ -655,8 +663,8 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         float maxY = Math.max(Math.max(ltp.y, lbp.y), Math.max(rtp.y, rbp.y));
 
         //得出了自己的宽和高
-        mViewWidth = (int) (maxX - minX);
-        mViewHeight = (int) (maxY - minY);
+        mViewWidth = (maxX - minX);
+        mViewHeight = (maxY - minY);
 
     }
 
