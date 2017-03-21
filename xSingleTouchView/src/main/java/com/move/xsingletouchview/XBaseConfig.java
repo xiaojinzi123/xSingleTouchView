@@ -18,6 +18,11 @@ public class XBaseConfig {
     protected float mControlSize;
 
     /**
+     * 控制点的缩放比
+     */
+    protected float mControlSizeScale = 1.0f;
+
+    /**
      * 默认的中间的图的最小值
      */
     protected float mCenterViewWidthMinSize, mCenterViewHeightMinSize;
@@ -178,11 +183,19 @@ public class XBaseConfig {
     }
 
     public float getControlSize() {
-        return mControlSize;
+        return mControlSize * mControlSizeScale;
     }
 
     public void setControlSize(float mControlSize) {
         this.mControlSize = mControlSize;
+    }
+
+    public float getmControlSizeScale() {
+        return mControlSizeScale;
+    }
+
+    public void setmControlSizeScale(float mControlSizeScale) {
+        this.mControlSizeScale = mControlSizeScale;
     }
 
     public float getCenterViewWidthMinSize() {

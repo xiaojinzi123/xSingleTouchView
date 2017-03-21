@@ -71,6 +71,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
     public XSingleTouchView(Context context, AttributeSet attrs, int defStyleAttr, XViewConfig xViewConfig) {
         super(context, attrs, defStyleAttr);
+
         if (xViewConfig == null) {
             //如果是空的就创建一个
             xViewConfig = new XViewConfig(context, false);
@@ -250,7 +251,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         mPath.lineTo(ltControlPoint.x, ltControlPoint.y);
 
         if (mXViewConfig.getLinePaint() != null) {
-            mXViewConfig.getLinePaint().setAntiAlias(false);
+            mXViewConfig.getLinePaint().setAntiAlias(true);
             //绘制
             canvas.drawPath(mPath, mXViewConfig.getLinePaint());
         }
