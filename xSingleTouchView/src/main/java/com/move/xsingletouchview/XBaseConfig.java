@@ -190,11 +190,11 @@ public class XBaseConfig {
         this.mControlSize = mControlSize;
     }
 
-    public float getmControlSizeScale() {
+    public float getControlSizeScale() {
         return mControlSizeScale;
     }
 
-    public void setmControlSizeScale(float mControlSizeScale) {
+    public void setControlSizeScale(float mControlSizeScale) {
         this.mControlSizeScale = mControlSizeScale;
     }
 

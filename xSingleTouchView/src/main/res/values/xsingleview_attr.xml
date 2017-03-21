@@ -6,6 +6,10 @@
         <attr name="src_lb" format="reference" />
         <attr name="src_rt" format="reference" />
         <attr name="src_rb" format="reference" />
+        <!--控制点的大小-->
+        <attr name="control_size" format="dimension"/>
+        <!--控制点的缩放比-->
+        <attr name="control_size_scale" format="float"/>
         <!--中间的大图-->
         <attr name="src" format="reference" />
         <!--边缘线的宽度和颜色-->

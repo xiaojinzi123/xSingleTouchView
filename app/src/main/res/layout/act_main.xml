@@ -10,6 +10,8 @@
     <com.move.xsingletouchview.XSingleTouchView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:control_size="4dp"
+        app:control_size_scale="5"
         app:image_height="40dp"
         app:image_width="40dp"
         app:line_color="#0000FF"

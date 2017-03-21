@@ -101,6 +101,17 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
         //获取自定义属性
 
+        //获取控制点的大小和缩放比
+        int controlSize = a.getDimensionPixelSize(R.styleable.XSingleTouchView_control_size, -1);
+        if (controlSize != -1) {
+            mXViewConfig.setControlSize(controlSize);
+        }
+
+        float controlSizeScale = a.getFloat(R.styleable.XSingleTouchView_control_size_scale, 1f);
+        if (controlSizeScale > 0) {
+            mXViewConfig.setControlSizeScale(controlSizeScale);
+        }
+
         //左上角的控制点图片
         int ltBitmapRsd = a.getResourceId(R.styleable.XSingleTouchView_src_lt, -1);
         if (ltBitmapRsd != -1) {
