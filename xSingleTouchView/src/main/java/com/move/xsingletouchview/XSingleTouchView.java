@@ -335,11 +335,6 @@ public class XSingleTouchView extends View implements View.OnClickListener {
      */
     private int mAngle;
 
-    /**
-     * 记录是否滑动了
-     */
-    private boolean isMove;
-
     @Override
     public boolean onTouchEvent(MotionEvent e) {
 
@@ -353,8 +348,6 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         switch (action) {
 
             case MotionEvent.ACTION_DOWN: //如果是按下
-
-                isMove = false;
 
                 //记录按下的点
                 mPreMovePointF.set(e.getX(), e.getY());
@@ -375,8 +368,6 @@ public class XSingleTouchView extends View implements View.OnClickListener {
 
                 break;
             case MotionEvent.ACTION_MOVE: //如果是一个鼠标的移动
-
-                isMove = true;
 
                 //记录下移动中的点
                 mCurMovePointF.set(e.getX(), e.getY());
@@ -464,8 +455,6 @@ public class XSingleTouchView extends View implements View.OnClickListener {
             case MotionEvent.ACTION_UP: //如果是鼠标的抬起
 
                 onClick(this);
-
-                isMove = false;
 
                 break;
         }
@@ -755,21 +744,17 @@ public class XSingleTouchView extends View implements View.OnClickListener {
                 mOnControlListener.onSove(this, controlPosition);
             }
         } else { //如果不是删除和编辑的点击,那么就告诉外面点击事件生效啦
-            if (!isMove) {
+            //当前的时间
+            long nowTime = System.currentTimeMillis();
 
-                //当前的时间
-                long nowTime = System.currentTimeMillis();
-
-                if (nowTime - firstClickTime < 500) {
-                    if (mOnDbClickListener != null) {
-                        mOnDbClickListener.onDbClick(v);
-                    }
-                    firstClickTime = 0;
-                } else {
-                    firstClickTime = nowTime;
-                    //Toast.makeText(getContext(), "单击事件", Toast.LENGTH_SHORT).show();
+            if (nowTime - firstClickTime < 500) {
+                if (mOnDbClickListener != null) {
+                    mOnDbClickListener.onDbClick(v);
                 }
-
+                firstClickTime = 0;
+            } else {
+                firstClickTime = nowTime;
+                //Toast.makeText(getContext(), "单击事件", Toast.LENGTH_SHORT).show();
             }
         }
 

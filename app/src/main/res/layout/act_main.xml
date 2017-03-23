@@ -8,6 +8,7 @@
     tools:context="com.move.xsingletouchviewproject.MainAct">
 
     <com.move.xsingletouchview.XSingleTouchView
+        android:id="@+id/x"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:control_size="4dp"
