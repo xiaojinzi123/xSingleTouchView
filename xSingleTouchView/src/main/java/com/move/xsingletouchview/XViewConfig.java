@@ -14,7 +14,7 @@ import android.graphics.PointF;
  * 然后此类是描述一个设计元素的核心数据,但是他有好几种分类,所以这里有一个
  * 变量是type,区别是什么类型,并且每一种类型都是继承了此类,拓展记录更多的变量
  */
-public class XViewConfig extends XBaseConfig {
+public class XViewConfig extends XBaseConfig implements Cloneable {
 
 
     /**
@@ -227,6 +227,11 @@ public class XViewConfig extends XBaseConfig {
             //return XSingleTouchView.ControlPosition.Rotate;
         }
         return controlPosition;
+    }
+
+    @Override
+    public XViewConfig clone() throws CloneNotSupportedException {
+        return (XViewConfig) super.clone();
     }
 
 }
