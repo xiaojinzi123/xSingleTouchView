@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
+
 /**
  * Created by cxj on 2017/3/15.
  * 多功能View的配置的类,但是这里定义的都是为了显示在或者和主要绘制工作没有什么关系的变量
  * 比如限制的一些常量,边界值,四个控制点的图,这些都是非核心数据
  */
-public class XBaseConfig {
+public class XBaseConfig implements Serializable {
 
     /**
      * 控制点的大小
