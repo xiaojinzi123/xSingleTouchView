@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" filepath="$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/singleTouchViewLib/singleTouchViewLib.iml" filepath="$PROJECT_DIR$/singleTouchViewLib/singleTouchViewLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/xSingleTouchView.iml" filepath="$PROJECT_DIR$/xSingleTouchView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" filepath="$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" />
     </modules>
   </component>
 </project>
