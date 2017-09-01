@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/XSingleTouchViewProject.iml" filepath="$PROJECT_DIR$/XSingleTouchViewProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xSingleTouchView/xSingleTouchView.iml" filepath="$PROJECT_DIR$/xSingleTouchView/xSingleTouchView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" filepath="$PROJECT_DIR$/singleTouchViewLib/xSingleTouchView-xSingleTouchView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xSingleTouchView.iml" filepath="$PROJECT_DIR$/xSingleTouchView.iml" />
     </modules>
   </component>
 </project>

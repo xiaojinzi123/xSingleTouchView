@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -13,7 +12,6 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import static com.move.xsingletouchview.XSingleTouchView.ControlPosition.Delete;
 import static com.move.xsingletouchview.XSingleTouchView.ControlPosition.Drag;
@@ -53,9 +51,9 @@ public class XSingleTouchView extends View implements View.OnClickListener {
     /**
      * 初始化的时候中间点的位置
      */
-    public enum CenterPosition {
-        Center, Left, Top, Right, Bottom, LeftTop, RightTop, LeftBottom, RightBottom
-    }
+//    public enum CenterPosition {
+//        Center, Left, Top, Right, Bottom, LeftTop, RightTop, LeftBottom, RightBottom
+//    }
 
     public XSingleTouchView(Context context) {
         this(context, null);
@@ -145,10 +143,11 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         if (centerRsd != -1) {
             Bitmap centerbitmap = BitmapFactory.decodeResource(context.getResources(), centerRsd);
             mXViewConfig.setCenterBitmap(centerbitmap);
+            mXViewConfig.setCenterViewSize(centerbitmap.getWidth(),centerbitmap.getHeight());
         }
 
         //读取位置信息
-        int gravity = a.getInt(R.styleable.XSingleTouchView_gravity, 0);
+        //int gravity = a.getInt(R.styleable.XSingleTouchView_gravity, 0);
         //暂时实现不了
 
         //读取大图的大小
@@ -164,7 +163,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
         }
 
         //设置大小
-        if (imageWidth > mXViewConfig.getCenterViewWidthMinSize() || imageHeight > mXViewConfig.getCenterViewHeightMinSize()) {
+        if (imageWidth > mXViewConfig.getCenterViewWidthMinSize() && imageHeight > mXViewConfig.getCenterViewHeightMinSize()) {
             mXViewConfig.setCenterViewSize(imageWidth, imageHeight);
         }
 
@@ -215,7 +214,7 @@ public class XSingleTouchView extends View implements View.OnClickListener {
     /**
      * 用于缩放，旋转，平移的矩阵
      */
-    public Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
     //====================================================自身的变量=============================================end
 

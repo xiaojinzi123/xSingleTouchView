@@ -1,1 +1,1 @@
-include ':app', ':xSingleTouchView'
+include ':app', ':singleTouchViewLib'

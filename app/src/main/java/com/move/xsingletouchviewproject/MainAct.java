@@ -15,6 +15,7 @@ public class MainAct extends AppCompatActivity {
         setContentView(R.layout.act_main);
 
         XSingleTouchView x = (XSingleTouchView) findViewById(R.id.x);
+        x.getXViewConfig().getCenterPoint().set(240,240);
         x.setOnDbClickListener(new XSingleTouchView.OnDbClickListener() {
             @Override
             public void onDbClick(View v) {
